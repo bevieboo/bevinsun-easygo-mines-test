@@ -1,11 +1,6 @@
 {
-  "include": [
-    "./src/*",
-    "./types.d.ts",
-    "src/components/Game.tsx",
-    "src/components/Tile.tsx",
-    "src/api/api.ts"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
