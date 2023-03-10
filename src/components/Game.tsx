@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CasinoGameMines, minesBet, minesCashout, minesNext } from '../api/api';
 import { Button } from './Button';
 import { Tile } from './Tile';
-import { ButtonAction } from '../enums/ButtonAction';
+import { GameAction } from '../enums/GameAction';
 import { Gem, Mine } from '../assets';
 import gemSound from '../assets/gem.mp3';
 import mineSound from '../assets/mine.mp3';
@@ -96,14 +96,14 @@ const Game = () => {
 
   const getTextForTile = (): string => {
     if (isEnded) {
-      return ButtonAction.PlayAgain;
+      return GameAction.PlayAgain;
     }
 
     if (isInProgress && revealedTiles.length) {
-      return ButtonAction.CashOut;
+      return GameAction.CashOut;
     }
 
-    return ButtonAction.Bet;
+    return GameAction.Bet;
   };
 
   return (
