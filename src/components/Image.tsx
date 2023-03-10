@@ -5,7 +5,7 @@ type Props = {
   isDisplayed: boolean;
 };
 
-const Fader = styled.div<{ isOpen: boolean }>`
+const ScaleIn = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,8 +17,8 @@ const Fader = styled.div<{ isOpen: boolean }>`
 
 export const Image = ({ component: Component, isDisplayed }: Props) => {
   return (
-    <Fader isOpen={isDisplayed}>
+    <ScaleIn isOpen={isDisplayed}>
       <Component />
-    </Fader>
+    </ScaleIn>
   );
 };
