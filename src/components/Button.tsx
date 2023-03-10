@@ -12,28 +12,22 @@ const StyledButton = styled.button<{ isDisabled: boolean; isLoading: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
   border: 0;
-  background-color: #00e700;
+  border-radius: 5px;
+  background-color: #00e760;
+  color: #172937;
   padding: 10px 15px;
   cursor: pointer;
   width: 100%;
   max-width: 350px;
   min-height: 50px;
-  border-radius: 5px;
-  font-size: 1rem;
-
-  ${({ isDisabled }) =>
-    isDisabled &&
-    `
-    opacity: 0.3;
-    pointer-events: none;
-  `}
-
-  ${({ isLoading }) =>
-    isLoading &&
-    `
-    pointer-events: none;
-  `}
+  text-transform: uppercase;
+  pointer-events: ${({ isDisabled, isLoading }) =>
+    isDisabled || isLoading ? 'none' : 'auto'};
+  opacity: ${({ isDisabled }) => (isDisabled ? '0.3' : '1')};
 `;
 
 export const Button = ({ onClick, text, isDisabled, isLoading }: Props) => {

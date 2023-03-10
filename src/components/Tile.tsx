@@ -25,19 +25,9 @@ const StyledTile = styled.button<{
   position: relative;
   box-shadow: 0px 6px #203542;
   transition: ease-out 0.2s;
-
-  ${({ isRevealed }) =>
-    isRevealed &&
-    `
-    pointer-events: none;
-  `}
-
-  ${({ isDisabled }) =>
-    isDisabled &&
-    `
-    pointer-events: none;
-    opacity: 0.25;
-  `}
+  pointer-events: ${({ isDisabled, isRevealed }) =>
+    isDisabled || isRevealed ? 'none' : 'auto'};
+  opacity: ${({ isDisabled }) => (isDisabled ? '0.25' : '1')};
 
   :hover {
     background-color: #557086;
