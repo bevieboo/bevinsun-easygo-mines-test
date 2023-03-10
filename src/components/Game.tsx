@@ -7,6 +7,7 @@ import { ButtonAction } from '../enums/ButtonAction';
 import { Gem, Mine } from '../assets';
 import gemSound from '../assets/gem.mp3';
 import mineSound from '../assets/mine.mp3';
+import startSound from '../assets/start.mp3';
 
 // Grid
 const ROWS = 5;
@@ -32,6 +33,7 @@ const Game = () => {
 
   const gemAudio = new Audio(gemSound);
   const mineAudio = new Audio(mineSound);
+  const startAudio = new Audio(startSound);
 
   const resetGame = () => {
     setIsInProgress(false);
@@ -54,15 +56,17 @@ const Game = () => {
       const gameState: CasinoGameMines = await minesBet();
       console.log(gameState);
       setIsInProgress(gameState.state === 'progress');
+      startAudio.play();
     }
 
     if (isInProgress && revealedTiles.length) {
-      const gameState: CasinoGameMines = await minesCashout();
-      endGame(gameState);
-    }
-
-    if (isEnded) {
-      resetGame();
+      if (isEnded) {
+        resetGame();
+      } else {
+        const gameState: CasinoGameMines = await minesCashout();
+        endGame(gameState);
+        startAudio.play();
+      }
     }
 
     setIsButtonLoading(false);
