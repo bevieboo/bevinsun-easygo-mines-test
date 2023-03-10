@@ -17,7 +17,7 @@ const StyledButton = styled.button<{ isDisabled: boolean; isLoading: boolean }>`
   font-weight: bold;
   border: 0;
   border-radius: 5px;
-  background-color: #00e760;
+  background-color: ${({ isLoading }) => (isLoading ? '#00be4f' : '#00e760')};
   color: #172937;
   padding: 10px 15px;
   cursor: pointer;
@@ -31,7 +31,7 @@ const StyledButton = styled.button<{ isDisabled: boolean; isLoading: boolean }>`
   transition: 0.3s ease;
 
   :hover {
-    background-color: #00c954;
+    background-color: #00be4f;
   }
 `;
 
