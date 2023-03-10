@@ -1,7 +1,14 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const StyledTile = styled.button`
+type Props = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  isRevealed: boolean;
+  img: React.FC;
+};
+
+const StyledTile = styled.button<{
+  isRevealed: boolean;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +20,23 @@ const StyledTile = styled.button`
   position: relative;
   box-shadow: 0px 6px #203542;
   transition: ease-out 0.2s;
+
+  ${({ isRevealed }) =>
+    isRevealed &&
+    `
+    pointer-events: none;
+  `}
+
+  svg {
+    width: 80%;
+    height: 80%;
+  }
 `;
 
-export const Tile = () => {
-  return <StyledTile />;
+export const Tile = ({ onClick, isRevealed, img: Image }: Props) => {
+  return (
+    <StyledTile onClick={onClick} isRevealed={isRevealed}>
+      {isRevealed && <Image />}
+    </StyledTile>
+  );
 };
