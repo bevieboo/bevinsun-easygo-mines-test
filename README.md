@@ -26,3 +26,5 @@ I would like to have made the number of mines dynamic, but I ran out of time. (A
 - User can select number of mines in the dropdown to start the game, and on clicking the `Bet` button, sending a post request to the api with the number of mines in the payload.
 
 The styled components could also go into its own separate component/folder.
+
+Some tests would have been good.
