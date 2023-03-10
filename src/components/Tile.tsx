@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Spinner } from './Spinner';
+import { Image } from './Image';
 
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -54,7 +55,7 @@ export const Tile = ({
   isRevealed,
   isDisabled,
   isLoading,
-  img: Image,
+  img,
 }: Props) => {
   return (
     <StyledTile
@@ -63,7 +64,7 @@ export const Tile = ({
       isDisabled={isDisabled}
     >
       {isLoading && !isRevealed && <Spinner />}
-      {isRevealed && <Image />}
+      <Image isDisplayed={isRevealed} component={img} />
     </StyledTile>
   );
 };
