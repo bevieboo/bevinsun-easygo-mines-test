@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { CasinoGameMines, minesBet, minesNext } from '../api/api';
+import { CasinoGameMines, minesBet, minesCashout, minesNext } from '../api/api';
 import { Button } from './Button';
 import { Tile } from './Tile';
 import { ButtonAction } from '../enums/ButtonAction';
@@ -31,6 +31,13 @@ const Game = () => {
   const gemAudio = new Audio(gemSound);
   const mineAudio = new Audio(mineSound);
 
+  const resetGame = () => {
+    setIsInProgress(false);
+    setIsEnded(false);
+    setRevealedTiles([]);
+    setMines([]);
+  };
+
   const endGame = (gameState: CasinoGameMines) => {
     setIsEnded(true);
     setRevealedTiles(gameState.revealedTiles);
@@ -44,6 +51,11 @@ const Game = () => {
       const gameState: CasinoGameMines = await minesBet();
       console.log(gameState);
       setIsInProgress(gameState.state === 'progress');
+    }
+
+    if (isInProgress && revealedTiles.length) {
+      const gameState: CasinoGameMines = await minesCashout();
+      endGame(gameState);
     }
 
     setIsButtonLoading(false);
