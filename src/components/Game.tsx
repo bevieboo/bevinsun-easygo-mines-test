@@ -13,13 +13,24 @@ import startSound from '../assets/start.mp3';
 const ROWS = 5;
 const COLUMNS = 5;
 
+const StyledHeader = styled.h1`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+
+  span {
+    padding: 0 15px;
+  }
+`;
+
 const StyledGame = styled.div`
   display: grid;
   grid-gap: 15px 10px;
   grid-template-columns: repeat(${COLUMNS}, minmax(auto, 80px));
   justify-content: center;
   align-self: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 `;
 
 const Game = () => {
@@ -108,6 +119,11 @@ const Game = () => {
 
   return (
     <>
+      <StyledHeader>
+        <Gem />
+        <span>MINES</span>
+        <Mine />
+      </StyledHeader>
       <StyledGame>
         {new Array(ROWS * COLUMNS).fill(null).map((_: null, i: number) => (
           <Tile
