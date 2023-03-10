@@ -28,6 +28,11 @@ const StyledButton = styled.button<{ isDisabled: boolean; isLoading: boolean }>`
   pointer-events: ${({ isDisabled, isLoading }) =>
     isDisabled || isLoading ? 'none' : 'auto'};
   opacity: ${({ isDisabled }) => (isDisabled ? '0.3' : '1')};
+  transition: 0.3s ease;
+
+  :hover {
+    background-color: #00c954;
+  }
 `;
 
 export const Button = ({ onClick, text, isDisabled, isLoading }: Props) => {
