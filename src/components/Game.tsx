@@ -23,10 +23,12 @@ const StyledGame = styled.div`
 
 const Game = () => {
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+  const [isTileLoading, setIsTileLoading] = useState<boolean>(false);
   const [isInProgress, setIsInProgress] = useState<boolean>(false);
   const [isEnded, setIsEnded] = useState<boolean>(false);
   const [revealedTiles, setRevealedTiles] = useState<number[]>([]);
   const [mines, setMines] = useState<number[]>([]);
+  const [selectedTile, setSelectedTile] = useState<number | null>(null);
 
   const gemAudio = new Audio(gemSound);
   const mineAudio = new Audio(mineSound);
@@ -42,6 +44,7 @@ const Game = () => {
     setIsEnded(true);
     setRevealedTiles(gameState.revealedTiles);
     setMines(gameState.mines);
+    setSelectedTile(null);
   };
 
   const handleClick = async () => {
@@ -58,11 +61,18 @@ const Game = () => {
       endGame(gameState);
     }
 
+    if (isEnded) {
+      resetGame();
+    }
+
     setIsButtonLoading(false);
   };
 
   const revealTile = async (index: number) => {
-    if (isInProgress) {
+    setIsTileLoading(true);
+
+    if (isInProgress && !isTileLoading) {
+      setSelectedTile(index);
       const gameState: CasinoGameMines = await minesNext(index);
       console.log(gameState);
 
@@ -76,9 +86,15 @@ const Game = () => {
         endGame(gameState);
       }
     }
+
+    setIsTileLoading(false);
   };
 
   const getTextForTile = (): string => {
+    if (isEnded) {
+      return ButtonAction.PlayAgain;
+    }
+
     if (isInProgress && revealedTiles.length) {
       return ButtonAction.CashOut;
     }
@@ -93,6 +109,7 @@ const Game = () => {
           <Tile
             key={`tile-${i}`}
             onClick={() => revealTile(i)}
+            isLoading={selectedTile === i}
             isDisabled={
               !isInProgress || (isEnded && !revealedTiles.includes(i))
             }
