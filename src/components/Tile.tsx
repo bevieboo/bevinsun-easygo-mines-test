@@ -3,11 +3,13 @@ import styled from 'styled-components';
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   isRevealed: boolean;
+  isDisabled: boolean;
   img: React.FC;
 };
 
 const StyledTile = styled.button<{
   isRevealed: boolean;
+  isDisabled: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -27,15 +29,36 @@ const StyledTile = styled.button<{
     pointer-events: none;
   `}
 
+  ${({ isDisabled }) =>
+    isDisabled &&
+    `
+    pointer-events: none;
+    opacity: 0.25;
+  `}
+
+  :hover {
+    background-color: #557086;
+    transform: translateY(-2px);
+  }
+
   svg {
     width: 80%;
     height: 80%;
   }
 `;
 
-export const Tile = ({ onClick, isRevealed, img: Image }: Props) => {
+export const Tile = ({
+  onClick,
+  isRevealed,
+  isDisabled,
+  img: Image,
+}: Props) => {
   return (
-    <StyledTile onClick={onClick} isRevealed={isRevealed}>
+    <StyledTile
+      onClick={onClick}
+      isRevealed={isRevealed}
+      isDisabled={isDisabled}
+    >
       {isRevealed && <Image />}
     </StyledTile>
   );

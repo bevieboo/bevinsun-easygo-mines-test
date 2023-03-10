@@ -81,6 +81,9 @@ const Game = () => {
           <Tile
             key={`tile-${i}`}
             onClick={() => revealTile(i)}
+            isDisabled={
+              !isInProgress || (isEnded && !revealedTiles.includes(i))
+            }
             isRevealed={isEnded || revealedTiles.includes(i)}
             img={mines.includes(i) ? Mine : Gem}
           />
